@@ -40,7 +40,7 @@ namespace WpfInvokeFix
         {
             count++;
 
-            // Invoke to BeginInvoke
+            // Invoke to BeginInvoke 
             Dispatcher.BeginInvoke(() =>
             {
                 Label1.Content = count;
