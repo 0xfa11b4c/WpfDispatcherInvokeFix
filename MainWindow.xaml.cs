@@ -1,7 +1,4 @@
-﻿using System;
 using System.Diagnostics;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace WpfInvokeFix
@@ -23,7 +20,7 @@ namespace WpfInvokeFix
             for (int i = 0; i < 100; i++)
             {
                 Stopwatch sw = Stopwatch.StartNew();
-
+                //added MaxDegreeOfParallelism
                 Parallel.For(0, 10, new ParallelOptions { MaxDegreeOfParallelism = 4 }, _ =>
                 {
                     Thread.Sleep(1);
