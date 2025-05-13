@@ -1,14 +1,11 @@
-﻿using System;
-using System.Diagnostics;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using System.Windows;
 
 namespace WpfInvokeFix
 {
     public partial class MainWindow : Window
     {
-        private Timer timer;
+        private Timer? timer;
         private int count = 0;
 
         public MainWindow()
@@ -16,7 +13,7 @@ namespace WpfInvokeFix
             InitializeComponent();
         }
 
-        protected override void OnContentRendered(EventArgs e)
+        protected override async void OnContentRendered(EventArgs e)
         {
             timer = new Timer(TimerHandler, null, 0, 20);
 
@@ -24,9 +21,9 @@ namespace WpfInvokeFix
             {
                 Stopwatch sw = Stopwatch.StartNew();
 
-                Parallel.For(0, 10, new ParallelOptions { MaxDegreeOfParallelism = 4 }, _ =>
+                await Parallel.ForAsync(0, 10, new ParallelOptions { MaxDegreeOfParallelism = 4 }, async (j, ct) =>
                 {
-                    Thread.Sleep(1);
+                    await Task.Delay(1, ct);
                 });
 
                 sw.Stop();
@@ -36,7 +33,7 @@ namespace WpfInvokeFix
             base.OnContentRendered(e);
         }
 
-        private void TimerHandler(object state)
+        private void TimerHandler(object? state)
         {
             count++;
 
