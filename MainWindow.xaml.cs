@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using System.Windows;
 
 namespace WpfInvokeFix
@@ -37,7 +37,6 @@ namespace WpfInvokeFix
         {
             count++;
 
-            // Invoke to BeginInvoke 
             Dispatcher.BeginInvoke(() =>
             {
                 Label1.Content = count;
